@@ -1,14 +1,17 @@
 {
   "compilerOptions": {
+    /* React Specific - THIS IS THE MISSING PIECE */
+    "jsx": "react-jsx",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+
     /* File Layout */
     "rootDir": "./src",
     "outDir": "./dist",
 
     /* Environment Settings */
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "target": "ESNext",
-    "lib": ["ESNext"],
     "types": ["node"],
 
     /* Other Outputs */
