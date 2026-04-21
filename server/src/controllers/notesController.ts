@@ -1,14 +1,13 @@
 import type { Request, Response } from "express";
-import Note from "../modles/Notes.js";
+import Note from "../models/Notes.js";
 
-//Get all Notes
+// Get all Notes
 export async function getNotes(req: Request, res: Response) {
   try {
     const notes = await Note.find().sort({ createdAt: -1 });
     res.status(200).json(notes);
   } catch (error: any) {
     console.error("Error in getNotes", error);
-
     res.status(500).json({ message: "Internal server error" });
   }
 }
@@ -32,7 +31,7 @@ export async function updateNote(req: Request, res: Response) {
       { returnDocument: "after", runValidators: true },
     );
 
-    // to check if the id exist or not
+    // Check if the id (or Note) exist or not
     if (!updatedNote) {
       console.log("Note not found in DB");
       return res.status(404).json({ message: "Note not found" });
@@ -45,7 +44,7 @@ export async function updateNote(req: Request, res: Response) {
   }
 }
 
-// POST a new note
+// POST (Create) a new note
 export async function createNote(req: Request, res: Response) {
   try {
     const { title, content } = req.body;

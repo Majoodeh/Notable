@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 5001;
 
 //middleware
 app.use(cors()); // Enable CORS for all routes
+
 app.use(express.json()); // middlware tom parse JSON bodies
 app.use(rateLimiter);
 
