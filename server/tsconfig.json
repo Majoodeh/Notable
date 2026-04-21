@@ -1,17 +1,16 @@
 {
   "compilerOptions": {
-    /* React Specific - THIS IS THE MISSING PIECE */
-    "jsx": "react-jsx",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    /* Node Specific Settings */
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022"],
 
     /* File Layout */
     "rootDir": "./src",
     "outDir": "./dist",
 
     /* Environment Settings */
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "target": "ESNext",
     "types": ["node"],
 
     /* Other Outputs */
@@ -26,7 +25,6 @@
     /* Recommended Options */
     "strict": true,
     "verbatimModuleSyntax": true,
-    "isolatedModules": true,
     "skipLibCheck": true,
     "esModuleInterop": true
   },
