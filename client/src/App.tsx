@@ -10,7 +10,6 @@ const App = () => {
       data-theme="retro"
       className="bg-base-100 min-h-screen text-base-content"
     >
-      <button className="btn-dash btn btn-success">Click me</button>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/create" element={<CreatePage />} />
