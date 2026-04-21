@@ -5,15 +5,23 @@ import toast from "react-hot-toast";
 import NoteCard from "../components/NoteCard";
 import api from "../lib/axios";
 
+interface Note {
+  _id: string;
+  title: string;
+  content: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 const HomePage = () => {
   const [isRateLimited, setIsRateLimited] = useState(false);
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const res = await api.get("/notes");
+        const res = await api.get<Note[]>("/notes");
         setNotes(res.data);
         setIsRateLimited(false);
         console.log("notes=====>    ", notes);

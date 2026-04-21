@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import api from "../lib/axios";
 
+// ! TODO : add condition to disable the create note button when it is empty or when it is creationg a note.
 const CreateNote: React.FC = () => {
   // states management
 
@@ -47,7 +48,10 @@ const CreateNote: React.FC = () => {
         </Link>
 
         {/* Main Form Card  */}
-        <div className="flex flex-col flex-1 bg-base-100 shadow-base-300/50 shadow-xl border border-base-300 rounded-3xl overflow-hidden">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col flex-1 bg-base-100 shadow-base-300/50 shadow-xl border border-base-300 rounded-3xl overflow-hidden"
+        >
           <div className="flex flex-col flex-1 p-6 md:p-10">
             <div className="flex flex-col flex-1 space-y-6">
               {/* Title  */}
@@ -82,7 +86,7 @@ const CreateNote: React.FC = () => {
 
                 <button
                   className="shadow-accent/20 shadow-lg rounded-xl w-full sm:w-auto btn btn-accent btn-sm md:btn-md"
-                  onClick={handleSubmit}
+                  type="submit"
                 >
                   {isLoading ? "Creating the note ..." : "Create Note"}
                   <Send className="size-4" />
@@ -90,7 +94,7 @@ const CreateNote: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
