@@ -5,6 +5,7 @@ import { NavLink, useNavigate, useParams } from "react-router";
 import Navbar from "../components/Navbar";
 import api from "../lib/axios";
 import toast from "react-hot-toast";
+import { AxiosError } from "axios";
 
 const NoteDetailPage = () => {
   const [note, setNote] = useState<NoteCard | null>(null);
@@ -20,8 +21,9 @@ const NoteDetailPage = () => {
         const res = await api.get(`/notes/${id}`);
 
         setNote(res.data);
-      } catch (error: any) {
-        console.error("Error fetching note data: ", error);
+      } catch (error) {
+        const axiosError = error as AxiosError<{ message: string }>;
+        console.log(axiosError.response?.data?.message);
         toast.error(
           "An error occurred while fetching the note. Please try again later.",
         );
@@ -34,12 +36,15 @@ const NoteDetailPage = () => {
 
   // Handle delete and save actions
   const handleDelete = async () => {
+    if (!window.confirm("Are you sure you want to delete this note?")) return;
+
     try {
       await api.delete(`/notes/${id}`);
       toast.success("Note deleted successfully");
       navigate("/");
-    } catch (error: any) {
-      console.error("Error deleting note: ", error);
+    } catch (error) {
+      const axiosError = error as AxiosError<{ message: string }>;
+      console.log(axiosError.response?.data?.message);
       toast.error(
         "An error occurred while deleting the note. Please try again later.",
       );
@@ -48,6 +53,7 @@ const NoteDetailPage = () => {
 
   // Handle save action
   const handleSave = async () => {
+    if (!note) return;
     if (!note?.title.trim() && !note?.content.trim()) {
       handleDelete();
       return;
@@ -62,14 +68,14 @@ const NoteDetailPage = () => {
     try {
       await api.put(`/notes/${id}`, note);
       toast.success("Note updated successfully");
-      navigate("/");
-    } catch (error: any) {
-      console.log("Error updating note: ", error);
+    } catch (error) {
+      const axiosError = error as AxiosError<{ message: string }>;
+      console.log(axiosError.response?.data?.message);
       toast.error(
         "An error occurred while updating the note. Please try again later.",
       );
     } finally {
-      setSaving(true);
+      setSaving(false);
     }
   };
 
@@ -130,7 +136,7 @@ const NoteDetailPage = () => {
               type="text"
               placeholder="Note Title"
               className="focus:bg-transparent placeholder:opacity-30 px-0 border-none focus:outline-none w-full font-bold text-2xl input input-ghost"
-              value={note?.title}
+              value={note?.title || ""}
               onChange={handleInputChange}
             />
 
@@ -140,7 +146,7 @@ const NoteDetailPage = () => {
               name="content"
               placeholder="Start typing..."
               className="focus:bg-transparent px-0 border-none focus:outline-none w-full min-h-[300px] text-base leading-relaxed resize-none textarea textarea-ghost"
-              value={note?.content}
+              value={note?.content || ""}
               onChange={handleInputChange}
             />
           </main>

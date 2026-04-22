@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import NoteCard from "../components/NoteCard";
 import api from "../lib/axios";
 import type { Note } from "../types";
+import type { AxiosError } from "axios";
 
 const HomePage = () => {
   const [isRateLimited, setIsRateLimited] = useState(false);
@@ -22,6 +23,9 @@ const HomePage = () => {
         if (error.response?.status === 429) {
           setIsRateLimited(true);
         } else {
+          const axiosError = error as AxiosError<{ message: string }>;
+          console.log(axiosError.response?.data?.message);
+
           toast.error(
             "An error occurred while fetching notes. Please try again later.",
           );

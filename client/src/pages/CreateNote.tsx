@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import api from "../lib/axios";
 import Navbar from "../components/Navbar";
+import type { AxiosError } from "axios";
 
 // ! TODO : add condition to disable the create note button when it is empty or when it is creationg a note.
 const CreateNote: React.FC = () => {
@@ -27,6 +28,8 @@ const CreateNote: React.FC = () => {
       toast.success("Note Created Successfully");
       navigate("/");
     } catch (error) {
+      const axiosError = error as AxiosError<{ message: string }>;
+      console.log(axiosError.response?.data?.message);
       toast.error(
         " An error occurred while creating the note. Please try again later.",
       );
