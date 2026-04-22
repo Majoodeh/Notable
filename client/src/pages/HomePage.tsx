@@ -39,7 +39,14 @@ const HomePage = () => {
 
       {/* // Conditional rendering of the */}
       {isRateLimited && <RateLimitedUI />}
-      <div className="p-4">{loading && <p>Loading notes...</p>}</div>
+      <div className="p-4">
+        {loading && (
+          <>
+            <p>Loading notes...</p>
+            <span className="loading-ring loading loading-xl"></span>
+          </>
+        )}
+      </div>
       <div className="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {notes.map((note) => (
           <NoteCard key={note._id} note={note} setNotes={setNotes} />
