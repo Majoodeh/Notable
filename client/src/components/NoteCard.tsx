@@ -17,14 +17,18 @@ interface Note {
 //Porps
 interface NoteCardProps {
   note: Note;
+  setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
 }
 
 const NoteCard: React.FC<NoteCardProps> = ({ note, setNotes }) => {
-  const handleDelete = async (e, id) => {
+  const handleDelete = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: string,
+  ) => {
     e.preventDefault();
     if (!window.confirm("are you sure?")) return;
     try {
-      await api.delete(`/notes/${note._id}`);
+      await api.delete(`/notes/${id}`);
 
       setNotes((prev) => prev.filter((note) => note._id !== id));
       toast.success("Note deleted successfully");
@@ -63,12 +67,9 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, setNotes }) => {
             <button
               aria-label="Delete note"
               className="hover:bg-error/10 text-error/70 btn btn-ghost btn-circle btn-sm"
-              onClick={() => {}}
+              onClick={(e) => handleDelete(e, note._id)}
             >
-              <Trash2Icon
-                onClick={(e) => handleDelete(e, note._id)}
-                className="size-4"
-              />
+              <Trash2Icon className="size-4" />
             </button>
           </div>
         </div>
