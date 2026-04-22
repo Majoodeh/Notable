@@ -4,15 +4,9 @@ import { SquarePen, Trash2Icon } from "lucide-react";
 import { formatDat } from "../lib/utils";
 import toast from "react-hot-toast";
 import api from "../lib/axios";
+import type { Note } from "../types";
 
 // Note Data Shape
-interface Note {
-  _id: string;
-  title: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-}
 
 //Porps
 interface NoteCardProps {
