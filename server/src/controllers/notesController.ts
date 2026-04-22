@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import Note from "../models/Notes.js";
+import mongoose from "mongoose";
 
 // Get all Notes
 export async function getNotes(req: Request, res: Response) {

@@ -49,9 +49,11 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, setNotes }) => {
 
         <div className="flex justify-between items-center px-4 py-3">
           <div className="flex items-center gap-2">
-            <span className="bg-accent/10 px-2 py-1 rounded-md font-black text-[10px] text-accent/60 uppercase tracking-widest">
-              {formatDat(note.updatedAt)}
-            </span>
+            {note.updatedAt && (
+              <span className="bg-accent/10 px-2 py-1 rounded-md font-black text-[10px] text-accent/60 uppercase tracking-widest">
+                {formatDat(note.updatedAt)}
+              </span>
+            )}
           </div>
 
           <div className="flex gap-1">
