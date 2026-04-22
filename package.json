@@ -1,0 +1,19 @@
+{
+  "name": "notable-app",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Fullstack Note-taking App",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "install-all": "npm install",
+    "dev": "npm run dev --workspaces --if-present",
+    "build": "npm  install --prefix server && npm install --prefix client && npm run build --prefix client",
+    "start": "npm run start --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
