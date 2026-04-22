@@ -16,7 +16,7 @@ export async function getNotes(req: Request, res: Response) {
 export async function getNoteById(req: Request, res: Response) {
   try {
     const { id } = req.params;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(id as string)) {
       return res.status(400).json({ message: "Note ID is required" });
     }
 
