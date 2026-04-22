@@ -87,6 +87,7 @@ const CreateNote: React.FC = () => {
                 <button
                   className="shadow-accent/20 shadow-lg rounded-xl w-full sm:w-auto btn btn-accent btn-sm md:btn-md"
                   type="submit"
+                  disabled={isLoading}
                 >
                   {isLoading ? "Creating the note ..." : "Create Note"}
                   <Send className="size-4" />
