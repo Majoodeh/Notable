@@ -5,3 +5,5 @@ export interface Note {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export type NoteCard = Pick<Note, "title" | "content">;

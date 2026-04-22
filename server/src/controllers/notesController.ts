@@ -12,6 +12,25 @@ export async function getNotes(req: Request, res: Response) {
   }
 }
 
+export async function getNoteById(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Note ID is required" });
+    }
+
+    const note = await Note.findById(id);
+
+    if (!note) {
+      return res.status(404).json({ message: "Note not found" });
+    }
+    res.status(200).json(note);
+  } catch (error: any) {
+    console.error("Error in getNoteById", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
 // PUT a note (UPDATE)
 export async function updateNote(req: Request, res: Response) {
   try {
