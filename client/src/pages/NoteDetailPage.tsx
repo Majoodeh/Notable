@@ -1,18 +1,26 @@
-import { ArrowLeft, Trash2, Save } from "lucide-react";
+import { ArrowLeft, Trash2, Save, Link } from "lucide-react";
 import type { NoteCard } from "../types";
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate, useParams } from "react-router";
 import Navbar from "../components/Navbar";
 import api from "../lib/axios";
 import toast from "react-hot-toast";
-import { AxiosError } from "axios";
+import type { AxiosError } from "axios";
+import type { ChangeEvent } from "react";
 
 const NoteDetailPage = () => {
   const [note, setNote] = useState<NoteCard | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const { id } = useParams();
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  // Validate the ID from the URL
+  if (!id) {
+    toast.error("Invalid note ID");
+    navigate("/");
+    return null;
+  }
 
   useEffect(() => {
     const fetchNoteData = async () => {
@@ -55,7 +63,7 @@ const NoteDetailPage = () => {
   const handleSave = async () => {
     if (!note) return;
     if (!note?.title.trim() && !note?.content.trim()) {
-      handleDelete();
+      await handleDelete();
       return;
     }
 
@@ -81,10 +89,9 @@ const NoteDetailPage = () => {
 
   // Handle input change for both title and content
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
-    console.log(e.target);
     setNote((prevNote) => {
       if (!prevNote) return null;
       return { ...prevNote, [name]: value };
@@ -114,12 +121,12 @@ const NoteDetailPage = () => {
         <div className="flex flex-col bg-base-100 shadow-xl border border-base-300 sm:rounded-2xl w-full max-w-2xl h-screen sm:h-[85vh] overflow-hidden">
           {/* HEADER: Sticky at the top of the card */}
           <header className="flex justify-between items-center bg-base-100 p-4 border-base-300 border-b">
-            <NavLink to="/">
+            <Link to="/">
               <button className="gap-2 btn btn-ghost btn-sm">
                 <ArrowLeft className="size-4" />
                 <span className="hidden sm:inline">Back</span>
               </button>
-            </NavLink>
+            </Link>
             <button
               className="gap-2 hover:bg-error/10 text-error btn btn-ghost btn-sm"
               onClick={handleDelete}

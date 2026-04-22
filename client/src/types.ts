@@ -6,7 +6,4 @@ export interface Note {
   updatedAt?: string;
 }
 
-export interface NoteCard {
-  title: string;
-  content: string;
-}
+export type NoteCard = Pick<Note, "title" | "content">;
