@@ -1,7 +1,7 @@
-import { ArrowLeft, Trash2, Save, Link } from "lucide-react";
+import { ArrowLeft, Trash2, Save } from "lucide-react";
 import type { NoteCard } from "../types";
 import { useEffect, useState } from "react";
-import { NavLink, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, Link } from "react-router";
 import Navbar from "../components/Navbar";
 import api from "../lib/axios";
 import toast from "react-hot-toast";
