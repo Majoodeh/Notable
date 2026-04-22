@@ -3,8 +3,8 @@ import type { AxiosInstance, CreateAxiosDefaults } from "axios";
 
 const BASE_URL =
   import.meta.MODE === "production"
-    ? import.meta.env.VITE_API_BASE_URL
-    : "/api";
+    ? "/api"
+    : import.meta.env.VITE_API_BASE_URL;
 const config: CreateAxiosDefaults = {
   baseURL: BASE_URL,
   headers: {
